@@ -4,7 +4,7 @@
   "version": "5.5.3-2.5.3",
   "description": "AiLeMe-UI 前端管理系统",
   "author": "LionLi",
-  "license": "MIT",
+  "license": "UNLICENSED",
   "type": "module",
   "scripts": {
     "dev": "vite serve --mode development",

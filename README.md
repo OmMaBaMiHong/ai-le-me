@@ -64,4 +64,4 @@ cp .env.example .env   # 填入你的 API Key
 
 ## 许可证
 
-[MIT](LICENSE)
+[商业授权 / 保留所有权利（使用需付费）](LICENSE)
