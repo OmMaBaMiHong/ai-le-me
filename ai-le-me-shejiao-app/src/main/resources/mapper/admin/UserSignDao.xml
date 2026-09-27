@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.aileme.shejiao.admin.dao.UserSignDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="org.aileme.shejiao.domain.entity.admin.UserSignEntity" id="userSignMap">
+        <result property="id" column="id"/>
+        <result property="uid" column="uid"/>
+        <result property="title" column="title"/>
+        <result property="number" column="number"/>
+        <result property="balance" column="balance"/>
+        <result property="createTime" column="create_time"/>
+    </resultMap>
+
+
+</mapper>

@@ -1,0 +1,115 @@
+######################################################################
+# Build Tools / Compiled artifacts (NEVER upload)
+######################################################################
+.gradle
+/build/
+!gradle/wrapper/gradle-wrapper.jar
+
+target/
+!.mvn/wrapper/maven-wrapper.jar
+bin/
+*.class
+*.jar
+!**/src/**/*.jar
+
+# Node / Frontend
+node_modules/
+dist/
+coverage/
+
+# Python
+.venv/
+.venv*/
+venv/
+env/
+__pycache__/
+*.pyc
+.pytest_cache/
+*.egg-info/
+
+# Flattened pom (generated)
+.flattened-pom.xml
+
+######################################################################
+# SECRETS / ENVIRONMENT  (NEVER upload real credentials)
+######################################################################
+.env
+.env.*
+!.env.example
+
+# Spring / runtime config that may contain real credentials or private keys
+application.yml
+application-dev.yml
+application-prod.yml
+*.local.yml
+ai-persona-config.properties
+# (ai-persona-config.example.properties is kept — it only has placeholders)
+
+# Raw secret / token files
+.codex_robot_cp.txt
+spy.log
+
+######################################################################
+# IDE / tooling
+######################################################################
+.idea/
+*.iws
+*.iml
+*.ipr
+.vscode/
+.claude/
+.gstack/
+.qoder/
+.DS_Store
+
+######################################################################
+# Logs / temp
+######################################################################
+*.log
+*.log.gz
+*.xml.versionsBackup
+*.swp
+logs/
+test-results/
+tmp/
+project_log/
+screenshots/
+artifacts/
+playwright-report/
+*.json.tmp
+
+######################################################################
+# Unrelated / sibling projects (NOT part of ai-le-me-Plus)
+######################################################################
+big/
+multi-platform-app/
+qiuou-flutter/
+qiuou-ux/
+relationship-os-web/
+hongniang-workbench/
+.venv-hongniang-import/
+it_sanxiu.html
+
+######################################################################
+# WorkBuddy internal state
+######################################################################
+.workbuddy/
+
+# ===== Unrelated stray docs (different product) =====
+qiuou-dual-track-plan.md
+qiuou-dual-track-status-2026-02-14.md
+docs/compliance/qiuou-*
+
+# ===== Private key files (never upload) =====
+*.pem
+*.key
+id_rsa*
+id_ed25519*
+*.pfx
+*.p12
+
+# ===== Stray local Maven cache mirror (never upload) =====
+# A `~/` directory (literal tilde) containing a copy of ~/.m2 was accidentally
+# captured during the initial commit. Exclude it so it is never tracked again.
+~/
+.m2/

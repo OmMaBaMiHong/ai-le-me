@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.aileme.shejiao.admin.dao.BillDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="org.aileme.shejiao.domain.entity.admin.BillEntity" id="billMap">
+        <result property="id" column="id"/>
+        <result property="uid" column="uid"/>
+        <result property="tipUserId" column="tip_user_id"/>
+        <result property="linkId" column="link_id"/>
+        <result property="orderId" column="order_id"/>
+        <result property="pm" column="pm"/>
+        <result property="title" column="title"/>
+        <result property="category" column="category"/>
+        <result property="type" column="type"/>
+        <result property="number" column="number"/>
+        <result property="balance" column="balance"/>
+        <result property="mark" column="mark"/>
+        <result property="addTime" column="add_time"/>
+        <result property="status" column="status"/>
+    </resultMap>
+
+
+</mapper>

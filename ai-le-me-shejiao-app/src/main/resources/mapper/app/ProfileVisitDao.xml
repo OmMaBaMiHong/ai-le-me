@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.aileme.shejiao.app.dao.ProfileVisitDao">
+
+    <!-- 查询谁看过我（关联用户表） -->
+    <select id="getVisitorList" resultType="org.aileme.shejiao.domain.vo.ProfileVisitorVo">
+        SELECT
+            pv.visitor_uid AS visitorUid,
+            u.username,
+            u.avatar,
+            u.gender,
+            u.age,
+            u.job,
+            pv.visit_count AS visitCount,
+            pv.total_duration AS totalDuration,
+            pv.interest_level AS interestLevel,
+            pv.last_visit_time AS lastVisitTime,
+            u.vip
+        FROM profile_visit pv
+        LEFT JOIN user u ON pv.visitor_uid = u.uid
+        WHERE pv.target_uid = #{targetUid}
+          AND u.status = 0
+        ORDER BY pv.last_visit_time DESC
+        LIMIT #{offset}, #{limit}
+    </select>
+
+    <!-- 查询对我感兴趣的人（interestLevel >= 2） -->
+    <select id="getInterestedVisitors" resultType="org.aileme.shejiao.domain.vo.ProfileVisitorVo">
+        SELECT
+            pv.visitor_uid AS visitorUid,
+            u.username,
+            u.avatar,
+            u.gender,
+            u.age,
+            u.job,
+            pv.visit_count AS visitCount,
+            pv.total_duration AS totalDuration,
+            pv.interest_level AS interestLevel,
+            pv.last_visit_time AS lastVisitTime,
+            u.vip
+        FROM profile_visit pv
+        LEFT JOIN user u ON pv.visitor_uid = u.uid
+        WHERE pv.target_uid = #{targetUid}
+          AND pv.interest_level >= 2
+          AND u.status = 0
+        ORDER BY pv.interest_level DESC, pv.last_visit_time DESC
+    </select>
+
+    <!-- 查询最近N个访客（用于主页预览） -->
+    <select id="getRecentVisitors" resultType="org.aileme.shejiao.domain.vo.ProfileVisitorVo">
+        SELECT
+            pv.visitor_uid AS visitorUid,
+            u.username,
+            u.avatar,
+            u.gender,
+            u.age,
+            u.job,
+            pv.visit_count AS visitCount,
+            pv.total_duration AS totalDuration,
+            pv.interest_level AS interestLevel,
+            pv.last_visit_time AS lastVisitTime,
+            u.vip
+        FROM profile_visit pv
+        LEFT JOIN user u ON pv.visitor_uid = u.uid
+        WHERE pv.target_uid = #{targetUid}
+          AND u.status = 0
+        ORDER BY pv.last_visit_time DESC
+        LIMIT #{limit}
+    </select>
+
+</mapper>

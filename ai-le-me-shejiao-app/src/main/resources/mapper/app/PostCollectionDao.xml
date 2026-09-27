@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.aileme.shejiao.app.dao.PostCollectionDao">
+
+    <resultMap type="org.aileme.shejiao.domain.entity.app.PostCollectionEntity" id="postCollectionMap">
+        <result property="uid" column="uid"/>
+        <result property="postId" column="post_id"/>
+    </resultMap>
+
+    <select id="findBatchCollectCount" parameterType="java.util.List" resultType="org.aileme.shejiao.domain.vo.PostCountResponse">
+        SELECT COUNT(uid) as number,post_id as postId FROM post_collection WHERE post_id IN
+        <foreach collection="list" item="postId" open="(" separator="," close=")">
+            #{postId}
+        </foreach>
+        GROUP BY post_id ORDER BY FIELD(post_id,
+        <foreach collection="list" item="postId" separator="," close=")">
+            #{postId}
+        </foreach>
+    </select>
+
+    <select id="findIsCollectBatch" parameterType="java.lang.Object" resultType="org.aileme.shejiao.domain.vo.PostIsCollectionResponse">
+        SELECT post_id AS postId,uid FROM post_collection WHERE uid=#{uid} and post_id IN
+        <foreach collection="list" item="postId" open="(" separator="," close=")">
+            #{postId}
+        </foreach>
+
+    </select>
+
+</mapper>

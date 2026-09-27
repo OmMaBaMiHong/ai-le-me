@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.aileme.shejiao.admin.dao.XiangqinActivityDao">
+
+    <!-- 根据红娘ID查询活动列表 -->
+    <select id="getByHongniangId" resultType="org.aileme.shejiao.domain.entity.admin.XiangqinActivityEntity">
+        SELECT
+            a.*,
+            h.hongniang_name,
+            h.avatar AS hongniang_avatar,
+            h.level AS hongniang_level
+        FROM xiangqin_activity a
+        LEFT JOIN hongniang_info h ON a.hongniang_id = h.id
+        WHERE a.hongniang_id = #{hongniangId}
+        ORDER BY a.create_time DESC
+    </select>
+
+    <!-- 增加浏览次数 -->
+    <update id="increaseViewCount">
+        UPDATE xiangqin_activity
+        SET view_count = view_count + 1
+        WHERE id = #{id}
+    </update>
+
+    <!-- 更新报名人数 -->
+    <update id="updateEnrollCount">
+        UPDATE xiangqin_activity
+        SET male_count = #{maleCount},
+            female_count = #{femaleCount},
+            update_time = NOW()
+        WHERE id = #{activityId}
+    </update>
+
+    <!-- 获取App端活动列表（带红娘信息） -->
+    <select id="getAppActivityList" resultType="org.aileme.shejiao.domain.entity.admin.XiangqinActivityEntity">
+        SELECT 
+            a.*,
+            h.hongniang_name,
+            h.avatar as hongniang_avatar,
+            h.level as hongniang_level
+        FROM xiangqin_activity a
+        LEFT JOIN hongniang_info h ON a.hongniang_id = h.id
+        <where>
+            <if test="status != null">
+                AND a.status = #{status}
+            </if>
+            <if test="hongniangId != null">
+                AND a.hongniang_id = #{hongniangId}
+            </if>
+            <if test="activityType != null">
+                AND a.activity_type = #{activityType}
+            </if>
+        </where>
+        ORDER BY a.create_time DESC
+        LIMIT #{offset}, #{limit}
+    </select>
+
+    <!-- 根据ID获取活动详情（带红娘信息） -->
+    <select id="getActivityWithHongniang" resultType="org.aileme.shejiao.domain.entity.admin.XiangqinActivityEntity">
+        SELECT 
+            a.*,
+            h.hongniang_name,
+            h.avatar as hongniang_avatar,
+            h.level as hongniang_level
+        FROM xiangqin_activity a
+        LEFT JOIN hongniang_info h ON a.hongniang_id = h.id
+        WHERE a.id = #{id}
+    </select>
+
+</mapper>

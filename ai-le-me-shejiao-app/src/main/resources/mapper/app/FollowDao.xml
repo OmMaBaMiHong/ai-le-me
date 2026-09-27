@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.aileme.shejiao.app.dao.FollowDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="org.aileme.shejiao.domain.entity.app.FollowEntity" id="followMap">
+        <result property="id" column="id"/>
+        <result property="uid" column="uid"/>
+        <result property="followUid" column="follow_uid"/>
+        <result property="createTime" column="create_time"/>
+    </resultMap>
+
+
+    <delete id="cancelFollow" parameterType="java.lang.Integer">
+        delete from follow where uid=#{uid} and follow_uid=#{followId}
+    </delete>
+
+    <select id="findFollowBatch" parameterType="java.lang.Object" resultType="org.aileme.shejiao.domain.vo.FollowBatchResponse">
+        SELECT id,uid,follow_uid as followUid FROM follow WHERE uid=#{uid} and (status = 0 OR status IS NULL) and follow_uid IN
+        <foreach collection="list" item="followUid" open="(" separator="," close=")">
+            #{followUid}
+        </foreach>
+
+    </select>
+</mapper>

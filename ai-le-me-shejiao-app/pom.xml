@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <groupId>org.aileme</groupId>
+        <artifactId>ai-le-me</artifactId>
+        <version>${revision}</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>ai-le-me-shejiao-app</artifactId>
+    <packaging>jar</packaging>
+
+    <description>
+        shejiao 业务模块（单体架构）
+        整合 domain/mapper/service/controller
+    </description>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.aileme</groupId>
+            <artifactId>ai-le-me-common</artifactId>
+        </dependency>
+        <!-- ai-le-me-system 系统模块 -->
+        <dependency>
+            <groupId>org.aileme</groupId>
+            <artifactId>ai-le-me-system</artifactId>
+        </dependency>
+        <!-- AI网关模块：统一模型路由与配置读取 -->
+        <dependency>
+            <groupId>org.aileme</groupId>
+            <artifactId>ai-le-me-ai-gateway</artifactId>
+        </dependency>
+
+        <!-- 以下依赖已由 ai-le-me-common 传递，无需重复声明：
+             - spring-boot-starter-web
+             - mybatis-plus-spring-boot3-starter
+             - sa-token-spring-boot3-starter
+             - lombok
+             - spring-boot-starter-validation
+             - spring-boot-starter-websocket
+             - spring-boot-starter-mail
+             - dynamic-datasource-spring-boot3-starter
+        -->
+
+        <!-- JPA API (仅注解，不启用JPA) -->
+        <dependency>
+            <groupId>jakarta.persistence</groupId>
+            <artifactId>jakarta.persistence-api</artifactId>
+        </dependency>
+
+        <!-- Quartz 定时任务 - shejiao 特有 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-quartz</artifactId>
+        </dependency>
+
+        <!-- FastJSON - shejiao 业务使用 -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+        </dependency>
+
+        <!-- PDFBox -->
+        <dependency>
+            <groupId>org.apache.pdfbox</groupId>
+            <artifactId>pdfbox</artifactId>
+        </dependency>
+
+        <!-- 阿里云SMS SDK（业务需要） -->
+        <dependency>
+            <groupId>com.aliyun</groupId>
+            <artifactId>aliyun-java-sdk-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.aliyun</groupId>
+            <artifactId>aliyun-java-sdk-dysmsapi</artifactId>
+        </dependency>
+
+        <!-- 微信 SDK（业务强依赖） -->
+        <dependency>
+            <groupId>com.github.binarywang</groupId>
+            <artifactId>weixin-java-mp</artifactId>
+        </dependency>
+
+        <!-- 验证码 Kaptcha -->
+        <dependency>
+            <groupId>com.github.penggle</groupId>
+            <artifactId>kaptcha</artifactId>
+        </dependency>
+
+        <!-- 二维码生成 -->
+        <dependency>
+            <groupId>com.google.zxing</groupId>
+            <artifactId>core</artifactId>
+        </dependency>
+
+        <!-- HTML 解析 -->
+        <dependency>
+            <groupId>org.jsoup</groupId>
+            <artifactId>jsoup</artifactId>
+        </dependency>
+
+        <!-- Joda Time -->
+        <dependency>
+            <groupId>joda-time</groupId>
+            <artifactId>joda-time</artifactId>
+        </dependency>
+
+        <!-- Druid 数据源 -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid-spring-boot-3-starter</artifactId>
+        </dependency>
+
+        <!-- MySQL - shejiao 需要显式依赖 -->
+        <dependency>
+            <groupId>com.mysql</groupId>
+            <artifactId>mysql-connector-j</artifactId>
+        </dependency>
+
+        <!-- 阿里云实人认证 SDK -->
+<!--        <dependency>-->
+<!--            <groupId>com.aliyun</groupId>-->
+<!--            <artifactId>cloudauth20190307</artifactId>-->
+<!--            <version>2.0.13</version>-->
+<!--        </dependency>-->
+
+        <!-- 腾讯云人脸核身 SDK -->
+        <dependency>
+            <groupId>com.tencentcloudapi</groupId>
+            <artifactId>tencentcloud-sdk-java-faceid</artifactId>
+            <version>3.1.426</version> <!-- 请以最新版本为准 -->
+        </dependency>
+        <dependency>
+            <groupId>com.tencentcloudapi</groupId>
+            <artifactId>tencentcloud-sdk-java</artifactId>
+            <version>3.1.1000</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <finalName>${project.artifactId}</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration combine.self="override">
+                    <argLine>-Dfile.encoding=UTF-8</argLine>
+                </configuration>
+            </plugin>
+            <!-- shejiao-app 是库模块，不需要 Spring Boot 重新打包 -->
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

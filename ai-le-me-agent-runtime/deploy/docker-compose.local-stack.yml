@@ -1,0 +1,25 @@
+services:
+  chroma:
+    image: chromadb/chroma:1.0.20
+    container_name: aileme-chroma
+    ports:
+      - "8008:8000"
+    volumes:
+      - ./data/chroma:/data
+    restart: unless-stopped
+
+  neo4j:
+    image: neo4j:5.28-community
+    container_name: aileme-neo4j
+    ports:
+      - "7474:7474"
+      - "7687:7687"
+    environment:
+      NEO4J_AUTH: neo4j/aileme-agent-dev
+      NEO4J_server_memory_heap_initial__size: 512m
+      NEO4J_server_memory_heap_max__size: 512m
+      NEO4J_server_memory_pagecache_size: 512m
+    volumes:
+      - ./data/neo4j/data:/data
+      - ./data/neo4j/logs:/logs
+    restart: unless-stopped

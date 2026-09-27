@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.aileme.shejiao.admin.dao.XiangqinEnrollmentDao">
+
+    <!-- 根据活动ID查询报名列表 -->
+    <select id="getByActivityId" resultType="org.aileme.shejiao.domain.entity.admin.XiangqinEnrollmentEntity">
+        SELECT
+            e.*,
+            u.username,
+            u.avatar as avatar,
+            u.gender,
+            u.age
+        FROM xiangqin_enrollment e
+        LEFT JOIN user u ON e.user_id = u.uid
+        WHERE e.activity_id = #{activityId}
+        AND e.status != 3
+        AND (
+            IFNULL(e.payment_amount, 0) &lt;= 0
+            OR e.payment_status = 1
+        )
+        ORDER BY e.create_time DESC
+    </select>
+
+    <!-- 根据用户ID查询报名列表 -->
+    <select id="getByUserId" resultType="org.aileme.shejiao.domain.entity.admin.XiangqinEnrollmentEntity">
+        SELECT
+            e.*,
+            a.title as activity_title,
+            a.cover_img as activity_cover,
+            a.start_time as activity_start_time,
+            a.address as activity_address
+        FROM xiangqin_enrollment e
+        LEFT JOIN xiangqin_activity a ON e.activity_id = a.id
+        WHERE e.user_id = #{userId}
+        AND e.status != 3
+        AND (
+            IFNULL(e.payment_amount, 0) &lt;= 0
+            OR e.payment_status = 1
+        )
+        ORDER BY e.create_time DESC
+    </select>
+
+    <!-- 检查用户是否已报名 -->
+    <select id="checkEnrolled" resultType="org.aileme.shejiao.domain.entity.admin.XiangqinEnrollmentEntity">
+        SELECT * FROM xiangqin_enrollment
+        WHERE activity_id = #{activityId}
+        AND user_id = #{userId}
+        AND status != 3
+        AND (
+            IFNULL(payment_amount, 0) &lt;= 0
+            OR payment_status = 1
+        )
+        LIMIT 1
+    </select>
+
+</mapper>

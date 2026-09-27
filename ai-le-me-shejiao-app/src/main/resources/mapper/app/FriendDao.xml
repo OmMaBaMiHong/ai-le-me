@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.aileme.shejiao.app.dao.FriendDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="org.aileme.shejiao.domain.entity.app.FriendEntity" id="friendMap">
+        <result property="id" column="id"/>
+        <result property="myId" column="my_id"/>
+        <result property="friendId" column="friend_id"/>
+        <result property="notation" column="notation"/>
+        <result property="sessionId" column="session_id"/>
+        <result property="lastMessage" column="last_message"/>
+        <result property="unread" column="unread"/>
+        <result property="isHidden" column="is_hidden"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+
+
+</mapper>

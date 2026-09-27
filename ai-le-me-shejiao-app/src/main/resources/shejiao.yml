@@ -1,0 +1,51 @@
+# ===================================
+# Shejiao 模块业务配置
+# 由 admin 通过 spring.config.import 自动加载
+# 可在 application-dev.yml / application-prod.yml 中覆盖
+# ===================================
+
+shejiao:
+  qiniu:
+    max-size: 30
+    admin-max-size: 5
+  linfeng:
+    path:
+      image: /tmp/upload/images
+      file: /tmp/upload/files
+      video: /tmp/upload/videos
+    email:
+      send: false
+  ai-video:
+    provider: doubao
+    enabled: true
+    allow-mock-fallback: false
+    polling:
+      mode: spring
+      interval-ms: 10000
+      initial-delay-ms: 15000
+      timeout-minutes: 15
+  ai-gift:
+    polling:
+      timeout-minutes: 20
+      batch-size: 2
+  file-upload:
+    path: /upload
+    url-prefix: http://localhost:8080
+
+# AI网关（单体内模块）
+aigateway:
+  default-ai-provider: doubao
+  timeout-seconds: 30
+  fallback-providers:
+    - qwen
+    - deepseek
+    - openai_codex
+    - mock
+  doubao:
+    api-key: ${ARK_API_KEY:}
+  openai:
+    api-key: ${OPENAI_API_KEY:}
+  deepseek:
+    api-key: ${DEEPSEEK_API_KEY:}
+  qwen:
+    api-key: ${DASHSCOPE_API_KEY:}
